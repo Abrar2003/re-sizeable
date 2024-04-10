@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+.add {
+    display: flex;
+    gap: 20px; 
+    width: 50%;                                                                                                                                                                    
+}
+
+.add input {
+  border: none;
+  padding: .5rem 1rem;
+}
+
+.add button, .text button {
+  border: 3px solid white;
+  color: white;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.text {
+  display: flex;
+  gap: 20px;
+}

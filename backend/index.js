@@ -1,13 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const app = express();
 const { Data, Count } = require("./models.js");
 require("dotenv").config();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // API routes
+app.get("/api/data", async (req, res) => {
+  try {
+    const data = await Data.find();
+    res.status(200).json(data);
+  }  catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
 app.post("/api/data", async (req, res) => {
   try {
     const newData = new Data({ text: req.body.text });
@@ -22,7 +33,7 @@ app.post("/api/data", async (req, res) => {
 
     res.status(201).json(savedData);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -47,7 +58,7 @@ app.put("/api/data/:id", async (req, res) => {
 
     res.json(updatedData);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -56,7 +67,7 @@ app.get("/api/count", async (req, res) => {
     const count = await Count.findOne({});
     res.json(count);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
