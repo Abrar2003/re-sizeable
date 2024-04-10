@@ -22,7 +22,7 @@ const Layout = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios("http://localhost:8080/api/data");
+      const { data } = await axios("https://re-sizeable-backend.onrender.com/api/data");
       console.log(data);
       return data;
     } catch (err) {
@@ -36,7 +36,7 @@ const Layout = () => {
 
   const update = async (id, text) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/data/${id}`, {
+      const response = await axios.put(`https://re-sizeable-backend.onrender.com/api/data/${id}`, {
         text,
       });
       const updatedData = await fetchData();

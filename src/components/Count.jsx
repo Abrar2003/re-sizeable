@@ -6,7 +6,7 @@ function Count() {
 
   const fetchCounts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/count');
+      const response = await axios.get('https://re-sizeable-backend.onrender.com/api/count');
       setCounts(response.data);
     } catch (error) {
       console.error('Error fetching counts:', error);
