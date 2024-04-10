@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-function Add() {
+function Add( { handleAdd }) {
   const [text, setText] = useState('');
-
-  const handleAdd = async () => {
-    try {
-      const response = await axios.post('https://re-sizeable-backend.onrender.com/api/data', { text });
-      console.log('Data added:', response.data);
-      setText(''); // Clear the input field after successful addition
-    } catch (error) {
-      console.error('Error adding data:', error);
-    }
-  };
+  useEffect(() => {
+    setText("")
+  }, [handleAdd]);
 
   return (
     <div className='add'>
@@ -22,7 +14,7 @@ function Add() {
         onChange={(e) => setText(e.target.value)}
         placeholder="Enter text"
       />
-      <button onClick={handleAdd}>ADD</button>
+      <button onClick={() => handleAdd(text)}>ADD</button>
     </div>
   );
 }

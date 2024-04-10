@@ -60,3 +60,8 @@
   display: flex;
   gap: 20px;
 }
+
+.allData {
+  height: 400px;
+  overflow: auto;
+}

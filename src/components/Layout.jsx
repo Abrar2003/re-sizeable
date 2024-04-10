@@ -9,6 +9,7 @@ const cn = (...args) => args.filter(Boolean).join(" ");
 
 const Layout = () => {
   const [data, setData] = useState([]);
+  const [counts, setCounts] = useState({ addCount: 0, updateCount: 0 });
   const {
     isDragging: isTerminalDragging,
     position: terminalH,
@@ -30,8 +31,31 @@ const Layout = () => {
     }
   };
 
+
+  const fetchCounts = async () => {
+    try {
+      const response = await axios.get('https://re-sizeable-backend.onrender.com/api/count');
+      setCounts(response.data);
+    } catch (error) {
+      console.error('Error fetching counts:', error);
+    }
+  };
+
+
+  const handleAdd = async (text) => {
+    try {
+      const response = await axios.post('https://re-sizeable-backend.onrender.com/api/data', { text });
+      console.log('Data added:', response.data);
+      fetchData().then((res) => setData(res));
+      fetchCounts();
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  };
+
   useEffect(() => {
     fetchData().then((res) => setData(res));
+    fetchCounts();
   }, []);
 
   const update = async (id, text) => {
@@ -41,6 +65,7 @@ const Layout = () => {
       });
       const updatedData = await fetchData();
       setData(updatedData);
+      fetchCounts();
       console.log("Data updated:", response.data);
       return response.data;
     } catch (err) {
@@ -60,12 +85,12 @@ const Layout = () => {
           className={cn("shrink-0 contents", isFileDragging && "dragging")}
           style={{ width: fileW }}
         >
-          <Add />
+          <Add handleAdd={handleAdd} />
         </div>
         <Splitter isDragging={isFileDragging} {...fileDragBarProps} />
         <div className={"flex grow"}>
           <div className={"grow bg-darker contents"}>
-            <Count />
+            <Count counts={counts} />
           </div>
         </div>
       </div>
@@ -77,7 +102,8 @@ const Layout = () => {
       <div
         className={cn(
           "shrink-0 bg-darker contents",
-          isTerminalDragging && "dragging"
+          isTerminalDragging && "dragging",
+          "allData"
         )}
         style={{ height: terminalH }}
       >
