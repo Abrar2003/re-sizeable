@@ -60,7 +60,7 @@ const Layout = () => {
     const permission = window.confirm("Are you sure you want to delete?")
     if(permission){
       try {
-        const data = await axios.delete(`http://localhost:8080/api/data/${id}`)
+        const data = await axios.delete(`https://re-sizeable-backend.onrender.com/api/data/${id}`)
         console.log(data.data.message);
         const updatedData = await fetchData();
         setData(updatedData);
