@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-function Text({ text, update, id }) {
+function Text({ text, update, id, handleDelete }) {
   const [updatedText, setUpdatedText] = useState("");
   const [showInput, setShowInput] = useState(false);
 
   const handleUpdate = async (id, newText) => {
     try {
       const updatedData = await update(id, newText);
-      // Do something with the updated data, if needed
       setShowInput(false);
       console.log("Updated data:", updatedData);
     } catch (err) {
@@ -30,7 +29,10 @@ function Text({ text, update, id }) {
           <button onClick={() => handleUpdate(id, updatedText)}>Done</button>
         </div>
       )}
-      <button onClick={()=>setShowInput(true)}>Update</button>
+      <div>
+        <button onClick={() => setShowInput(true)}>Update</button>
+        <button onClick={() => handleDelete(id)}>Delete</button>
+      </div>
     </div>
   );
 }

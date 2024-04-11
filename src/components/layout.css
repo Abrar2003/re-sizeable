@@ -15,7 +15,7 @@
   }
   
   .h-screen {
-    height: 100vh;
+    height: 95vh;
   }
   
   .bg-darker {
@@ -50,3 +50,19 @@
     background-color: #555555;
   }
   
+  .layout {
+    height: 100vh;
+    color: white !important;
+  }
+  .layout > div {
+    background-color: #2D3032;
+  }
+
+  .resizable-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+  }

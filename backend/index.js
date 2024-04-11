@@ -71,6 +71,21 @@ app.get("/api/count", async (req, res) => {
   }
 });
 
+app.delete("/api/data/:id", async (req, res) => {
+  try {
+    const result = await Data.findByIdAndDelete(req.params.id);
+    res.status(200).json({message: "success", data: result});
+    await Count.findOneAndUpdate(
+      {},
+      { $inc: { addCount: -1 } },
+      { new: true, upsert: true }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({error: err.message});
+  }
+})
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {

@@ -7,7 +7,9 @@ function Add( { handleAdd }) {
   }, [handleAdd]);
 
   return (
-    <div className='add'>
+    <div>
+      <h1>Add Data</h1>
+      <div className='add'>
       <input
         type="text"
         value={text}
@@ -15,6 +17,8 @@ function Add( { handleAdd }) {
         placeholder="Enter text"
       />
       <button onClick={() => handleAdd(text)}>ADD</button>
+      </div>
+      
     </div>
   );
 }
